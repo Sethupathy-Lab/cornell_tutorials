@@ -45,4 +45,4 @@ paths:
         /workdir/<put your Cornell ID here>/test_multi_samples/
 ```
 
-For more information and the full tutorial, see the [main miRquant repository](https://github.com/Sethupathy-Lab/miRquant). From here you can continue usint the main [miRquant tutorial](https://github.com/Sethupathy-Lab/miRquant/blob/master/tutorial/TUTORIAL.md) and follow along starting at the **Running miRQuant** section.
+For more information and the full tutorial, see the [main miRquant repository](https://github.com/Sethupathy-Lab/miRquant). From here you can continue using the main [miRquant tutorial](https://github.com/Sethupathy-Lab/miRquant/blob/master/tutorial/TUTORIAL.md) and follow along starting at the **Running miRQuant** section.
