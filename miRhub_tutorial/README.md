@@ -46,5 +46,18 @@ optional arguments:
                         Indicate which species miRhub is being run for; should be mouse or human (default = mouse)
 ```
 
-We'll next reserve a machine, login to our machine, create a folder in the working directory, and move our test files there. For information on this, see [getting ready to run a job].
+We'll next reserve a machine, login to our machine, create a folder in the working directory, and move our test files there. For information on this, see [getting ready to run a job](https://github.com/Sethupathy-Lab/cornell_tutorials/blob/master/getting_ready_to_run_a_job.md).
+
+Copy our test files to Cornell ID work directory.
+```
+$ cp /home/pr46_0001/cornell_tutorials/miRhub_tutorial/test/* /workdir/<your Cornell ID here>/
+$ cd /workdir/<your Cornell ID here>/
+```
+
+The test files are DEG_down and DEG_up for either down or up differentially expressed genes, respectfully. These lists were generated from human samples, and we will be running these under the standard parameters (cons of 012, list mode, 1000 iterations, no sixmers). We will want to change the project name to something more specific (-p flag) and indicate this is for human (-sp flag):
+```
+miRhub -p tutorial -sp human DEG_down.txt DEG_up.txt
+```
+The final output will be an excell sheet containing the miRhub results. The first sheet will be a list of the gene lists used and which conditions they were run under. The following sheets will be the miRhub results for each list and cons setting.
+
                         
