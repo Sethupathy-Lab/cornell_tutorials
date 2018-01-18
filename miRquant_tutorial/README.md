@@ -31,7 +31,7 @@ $ cp /home/pr46_0001/cornell_tutorials/miRquant_tutorial/test_multi_samples/* /w
 $ cd /workdir/<your Cornell ID here>/
 ```
 
-Change to your Cornell ID working directory and edit the file within the configuration directory (conf_miRquant.yml). The project path must match where your fastqs are and the output path must be identical until the naming of the directory to hold the output. This will require you to replace **``<put your Cornell ID here``>** with your Cornell ID. The path section of conf_miRquant.yml looks like this:
+Change to your Cornell ID working directory and edit the file within the configuration directory (conf_miRquant.yml). The project path must match where your fastqs are and the output path must be identical until the naming of the directory to hold the output. This will require you to replace **``<put your Cornell ID here>``** with your Cornell ID. The path section of conf_miRquant.yml looks like this:
 ```
 # Directory locations
 paths:
