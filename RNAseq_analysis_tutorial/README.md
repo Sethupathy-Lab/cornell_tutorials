@@ -12,6 +12,13 @@ While the code below will get you going on your RNAseq analysis, I would greatly
 [DESeq2 documentation](http://bioconductor.org/packages/release/bioc/manuals/DESeq2/man/DESeq2.pdf)  
 [DESeq2 tutorial](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html)  
 
+#### Test samples
+
+Test samples are located in the cornell_tutorials section of the lab directory:  
+`/home/pr46_0001/cornell_tutorials/RNAseq_analysis_tutorial/test`
+
+Before starting the tutorial, reserve a computer and copy the test files to it. For information on this, see [getting ready to run a job](https://github.com/Sethupathy-Lab/cornell_tutorials/blob/master/getting_ready_to_run_a_job.md).
+
 #### Building indexes
 
 Before aligning to the genome, you need to generate the indices for the genome. This has been done for mouse and human, and if you are aligning to those species, you can skip this section.
