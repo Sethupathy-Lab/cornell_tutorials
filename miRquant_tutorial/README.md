@@ -1,8 +1,10 @@
 # Cornell specific miRquant instructions
 
-Instructions on running miRhub using the python wrapper for Jeanette's perl code.
+Instructions on running miRquant on Cornell's cluster.  
 
-The location of the miRhub tutorial is here:
+
+
+The location of the miRquant tutorial is here:
 ```
 /home/pr46_0001/cornell_tutorials/miRquant_tutorial/
 ```
