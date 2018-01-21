@@ -2,7 +2,10 @@
 
 Instructions on running miRquant on Cornell's cluster.  
 
+1. Cornell-specific miRquant information and tutorial
+2. Running a large amount of samples efficiently
 
+### Cornell-specific miRquant information and tutorial
 
 The location of the miRquant tutorial is here:
 ```
@@ -48,3 +51,6 @@ paths:
 ```
 
 For more information and the full tutorial, see the [main miRquant repository](https://github.com/Sethupathy-Lab/miRquant). From here you can continue using the main [miRquant tutorial](https://github.com/Sethupathy-Lab/miRquant/blob/master/tutorial/TUTORIAL.md) and follow along starting at the **Running miRQuant** section.
+
+
+### Running a large amount of samples efficiently
