@@ -8,7 +8,7 @@ Much of the Sethupathy bioinformatic analyses rely on a core set of piplines, an
 If you can't access this location, you will have to contact CBSU and request access the Sethupathy lab space.
 
 ### Available tutorials
-[Getting ready to run a job] (https://github.com/Sethupathy-Lab/cornell_tutorials/blob/master/getting_ready_to_run_a_job.md)
-[RNAseq analysis] (https://github.com/Sethupathy-Lab/cornell_tutorials/tree/master/RNAseq_analysis_tutorial)
-[miRhub] (https://github.com/Sethupathy-Lab/cornell_tutorials/tree/master/miRhub_tutorial)
-[miRquant] (https://github.com/Sethupathy-Lab/cornell_tutorials/tree/master/miRquant_tutorial)
+[Getting ready to run a job](https://github.com/Sethupathy-Lab/cornell_tutorials/blob/master/getting_ready_to_run_a_job.md)
+[RNAseq analysis](https://github.com/Sethupathy-Lab/cornell_tutorials/tree/master/RNAseq_analysis_tutorial)
+[miRhub](https://github.com/Sethupathy-Lab/cornell_tutorials/tree/master/miRhub_tutorial)
+[miRquant](https://github.com/Sethupathy-Lab/cornell_tutorials/tree/master/miRquant_tutorial)
