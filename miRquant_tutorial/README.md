@@ -52,5 +52,108 @@ paths:
 
 For more information and the full tutorial, see the [main miRquant repository](https://github.com/Sethupathy-Lab/miRquant). From here you can continue using the main [miRquant tutorial](https://github.com/Sethupathy-Lab/miRquant/blob/master/tutorial/TUTORIAL.md) and follow along starting at the **Running miRQuant** section.
 
+Once miRquant has completed running, we will want to keep the output files and the fastqs, but not all files that were generated. The miRquant_collect script can help with that.
+```
+$ miRquant_collect -h
+usage: miRquant_collect [-h] [-l LOCATION] [-r RES] miRquant_out out
+
+Collects the necessary files from the miRquant directory and
+moves them to a directory in small RNAseq directory. This should
+be run from the directory containing the sample fastqs and associated
+miRquant files/directories, unless otherwise specified by the -r option.
+
+positional arguments:
+  miRquant_out          Name of directory containing miRquant sample files (logs, out, ect)
+  out                   Name of output directory
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -l LOCATION, --location LOCATION
+                        Location for output directory (Default = small RNA directory in miRquant_temporary)
+  -r RES                Location of results directory (Default = current directory)
+  ```
+
 
 ### Running a large amount of samples efficiently
+
+miRquant takes a long time to run. If you have sequencing results from many samples, it is a good idea to subset the data and run in batchs. However, this will slightly change how we run miRquant, the details of which will be covered below. First, add the required path to our system path using this command:
+```
+PATH=$PATH:/home/pr46_0001/shared/bin
+```
+
+#### Subsetting fastqs
+
+There is a script in place to break your data into sets, miRquant_subset.
+```
+$ miRquant_subset -h
+usage: miRquant_subset [-h] [-n NUM] fastqs [fastqs ...]
+
+Script will subset many fastqs into sets containing however many you chose
+(default = 5).
+
+The purpose of this script is two-fold; 1) Decrease the time required to
+process many fastqs on CBSU by creating sets that can be run on multiple
+machines 2) Decrease the amount of work to be repeated due to a
+failure of a sample (eg: only have to re-run set instead of all samples).
+
+If this script is used, sets must be assembled prior to running the
+final_processing.py script. There are scripts to assist with this, see
+miRquant tutorial under the Cornell tutorials section of the gitHub
+(https://github.com/Sethupathy-Lab/cornell_tutorials).
+
+positional arguments:
+  fastqs             fastqs that you want to subset
+
+optional arguments:
+  -h, --help         show this help message and exit
+  -n NUM, --num NUM  Number of files to put in each subset
+```
+For example, if we had 10 samples to break into two sets of 5, we would use the script as follows:
+```
+$ ls -1
+SampleA.fastq
+SampleB.fastq
+SampleC.fastq
+SampleD.fastq
+SampleE.fastq
+SampleF.fastq
+SampleG.fastq
+SampleH.fastq
+SampleI.fastq
+SampleJ.fastq
+
+$ miRquant_subset -n 5 *.fastq
+Each set will contain 5 fastqs
+
+Creating set #1...
+SampleA.fastq
+SampleB.fastq
+SampleC.fastq
+SampleD.fastq
+SampleE.fastq
+
+Creating set #2...
+SampleF.fastq
+SampleG.fastq
+SampleH.fastq
+SampleI.fastq
+SampleJ.fastq
+Done!
+
+$ ls -1
+SampleA.fastq
+SampleB.fastq
+SampleC.fastq
+SampleD.fastq
+SampleE.fastq
+SampleF.fastq
+SampleG.fastq
+SampleH.fastq
+SampleI.fastq
+SampleJ.fastq
+set_1            <- set_1 containing SampleA.fastq to SampleE.fastq
+set_2            <- set_2 containing SampleB.fastq to SampleJ.fastq
+```
+You'll still need to assemble a configuration folder for each of these sets prior to running miRquant on them.
+
+#### 
