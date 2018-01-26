@@ -183,3 +183,5 @@ miRquant_combine -o projectA -r projectA_output projectA_set1 projectA_set2 proj
           -r is assigning where the miRquant output directories will be copied. This will be created in the -o specified directory
           projectA_set1, ""_set2, ""_set3 are the results from miRquant that were brought over using miRquant_collect
 ```
+
+Once combined, create the conditions.csv, comparisons.csv, and configuration directory for these combined files and run the final processing portion of miRquant.
