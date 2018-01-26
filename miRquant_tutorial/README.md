@@ -159,4 +159,27 @@ You'll still need to assemble a configuration folder for each of these sets prio
 
 #### Re-combining subsetted files
 
-Once each set has been analysed through the process_summary_to_tab.py (but before running final_processing.py), bring the necessary files from the reserved computer to the lab space (see [miRquant collect script](#collecting-mirquant-results)
+Once each set has been analysed through the process_summary_to_tab.py (but before running final_processing.py), bring the necessary files from the reserved computer to the lab space (see [miRquant collect script](#collecting-mirquant-results)). The sets can be combined into one complete file using miRquant_combine.
+```
+$ miRquant_combine -h
+usage: miRquant_combine [-h] [-o OUTPUT] [-r RESULTS]
+                        miRquant_results [miRquant_results ...]
+
+positional arguments:
+  miRquant_results      Completed miRquant runs subsetted fastqs
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -o OUTPUT, --output OUTPUT
+                        Name of directory to combine sets into (Default = miRquant_combined)
+  -r RESULTS, --results RESULTS
+                        Name of direcctory within output directory to combine miRquant output into (Default = miRquant_combined)
+```
+An example call would be:
+```
+miRquant_combine -o projectA -r projectA_output projectA_set1 projectA_set2 projectA_set3 ect...
+
+   where: -o is assigning the directory where all fastqs and sample. directories will be placed
+          -r is assigning where the miRquant output directories will be copied. This will be created in the -o specified directory
+          projectA_set1, ""_set2, ""_set3 are the results from miRquant that were brought over using miRquant_collect
+```
