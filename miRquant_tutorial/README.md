@@ -52,6 +52,7 @@ paths:
 
 For more information and the full tutorial, see the [main miRquant repository](https://github.com/Sethupathy-Lab/miRquant). From here you can continue using the main [miRquant tutorial](https://github.com/Sethupathy-Lab/miRquant/blob/master/tutorial/TUTORIAL.md) and follow along starting at the **Running miRQuant** section.
 
+##### Collecting miRquant results
 Once miRquant has completed running, we will want to keep the output files and the fastqs, but not all files that were generated. The miRquant_collect script can help with that.
 ```
 $ miRquant_collect -h
@@ -156,4 +157,6 @@ set_2            <- set_2 containing SampleB.fastq to SampleJ.fastq
 ```
 You'll still need to assemble a configuration folder for each of these sets prior to running miRquant on them.
 
-#### 
+#### Re-combining subsetted files
+
+Once each set has been analysed through the process_summary_to_tab.py (but before running final_processing.py), bring the necessary files from the reserved computer to the lab space (see [miRquant collect script](#collecting-mirquant-results)
