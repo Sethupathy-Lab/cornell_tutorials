@@ -7,6 +7,12 @@ Instructions on running miRquant on Cornell's cluster.
 
 ### Cornell-specific miRquant information and tutorial
 
+**An up-to-date, Cornell-specific version of miRquant can be found here:**
+```
+/home/pr46_0001/programs
+```
+You can either copy the directory to your home directory and run it from there or run it directly from this location. If you do run it from this location, please remove any files you generate in this location once done.
+
 The location of the miRquant tutorial is here:
 ```
 /home/pr46_0001/cornell_tutorials/miRquant_tutorial/
