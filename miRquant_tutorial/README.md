@@ -1,8 +1,19 @@
 # Cornell specific miRquant instructions
 
-Instructions on running miRhub using the python wrapper for Jeanette's perl code.
+Instructions on running miRquant on Cornell's cluster.  
 
-The location of the miRhub tutorial is here:
+1. Cornell-specific miRquant information and tutorial
+2. Running a large amount of samples efficiently
+
+### Cornell-specific miRquant information and tutorial
+
+**An up-to-date, Cornell-specific version of miRquant can be found here:**
+```
+/home/pr46_0001/programs
+```
+You can either copy the directory to your home directory and run it from there or run it directly from this location. If you do run it from this location, please remove any files you generate in this location once done.
+
+The location of the miRquant tutorial is here:
 ```
 /home/pr46_0001/cornell_tutorials/miRquant_tutorial/
 ```
@@ -46,3 +57,137 @@ paths:
 ```
 
 For more information and the full tutorial, see the [main miRquant repository](https://github.com/Sethupathy-Lab/miRquant). From here you can continue using the main [miRquant tutorial](https://github.com/Sethupathy-Lab/miRquant/blob/master/tutorial/TUTORIAL.md) and follow along starting at the **Running miRQuant** section.
+
+##### Collecting miRquant results
+Once miRquant has completed running, we will want to keep the output files and the fastqs, but not all files that were generated. The miRquant_collect script can help with that.
+```
+$ miRquant_collect -h
+usage: miRquant_collect [-h] [-l LOCATION] [-r RES] miRquant_out out
+
+Collects the necessary files from the miRquant directory and
+moves them to a directory in small RNAseq directory. This should
+be run from the directory containing the sample fastqs and associated
+miRquant files/directories, unless otherwise specified by the -r option.
+
+positional arguments:
+  miRquant_out          Name of directory containing miRquant sample files (logs, out, ect)
+  out                   Name of output directory
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -l LOCATION, --location LOCATION
+                        Location for output directory (Default = small RNA directory in miRquant_temporary)
+  -r RES                Location of results directory (Default = current directory)
+  ```
+
+
+### Running a large amount of samples efficiently
+
+miRquant takes a long time to run. If you have sequencing results from many samples, it is a good idea to subset the data and run in batchs. However, this will slightly change how we run miRquant, the details of which will be covered below. First, add the required path to our system path using this command:
+```
+PATH=$PATH:/home/pr46_0001/shared/bin
+```
+
+#### Subsetting fastqs
+
+There is a script in place to break your data into sets, miRquant_subset.
+```
+$ miRquant_subset -h
+usage: miRquant_subset [-h] [-n NUM] fastqs [fastqs ...]
+
+Script will subset many fastqs into sets containing however many you chose
+(default = 5).
+
+The purpose of this script is two-fold; 1) Decrease the time required to
+process many fastqs on CBSU by creating sets that can be run on multiple
+machines 2) Decrease the amount of work to be repeated due to a
+failure of a sample (eg: only have to re-run set instead of all samples).
+
+If this script is used, sets must be assembled prior to running the
+final_processing.py script. There are scripts to assist with this, see
+miRquant tutorial under the Cornell tutorials section of the gitHub
+(https://github.com/Sethupathy-Lab/cornell_tutorials).
+
+positional arguments:
+  fastqs             fastqs that you want to subset
+
+optional arguments:
+  -h, --help         show this help message and exit
+  -n NUM, --num NUM  Number of files to put in each subset
+```
+For example, if we had 10 samples to break into two sets of 5, we would use the script as follows:
+```
+$ ls -1
+SampleA.fastq
+SampleB.fastq
+SampleC.fastq
+SampleD.fastq
+SampleE.fastq
+SampleF.fastq
+SampleG.fastq
+SampleH.fastq
+SampleI.fastq
+SampleJ.fastq
+
+$ miRquant_subset -n 5 *.fastq
+Each set will contain 5 fastqs
+
+Creating set #1...
+SampleA.fastq
+SampleB.fastq
+SampleC.fastq
+SampleD.fastq
+SampleE.fastq
+
+Creating set #2...
+SampleF.fastq
+SampleG.fastq
+SampleH.fastq
+SampleI.fastq
+SampleJ.fastq
+Done!
+
+$ ls -1
+SampleA.fastq
+SampleB.fastq
+SampleC.fastq
+SampleD.fastq
+SampleE.fastq
+SampleF.fastq
+SampleG.fastq
+SampleH.fastq
+SampleI.fastq
+SampleJ.fastq
+set_1            <- set_1 containing SampleA.fastq to SampleE.fastq
+set_2            <- set_2 containing SampleB.fastq to SampleJ.fastq
+```
+You'll still need to assemble a configuration folder for each of these sets prior to running miRquant on them.
+
+#### Re-combining subsetted files
+
+Once each set has been analysed through the process_summary_to_tab.py (but before running final_processing.py), bring the necessary files from the reserved computer to the lab space (see [miRquant collect script](#collecting-mirquant-results)). The sets can be combined into one complete file using miRquant_combine.
+```
+$ miRquant_combine -h
+usage: miRquant_combine [-h] [-o OUTPUT] [-r RESULTS]
+                        miRquant_results [miRquant_results ...]
+
+positional arguments:
+  miRquant_results      Completed miRquant runs subsetted fastqs
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -o OUTPUT, --output OUTPUT
+                        Name of directory to combine sets into (Default = miRquant_combined)
+  -r RESULTS, --results RESULTS
+                        Name of direcctory within output directory to combine miRquant output into (Default = miRquant_combined)
+```
+An example call would be:
+```
+miRquant_combine -o projectA -r projectA_output projectA_set1 projectA_set2 projectA_set3 ect...
+
+   where: -o is assigning the directory where all fastqs and sample. directories will be placed
+          -r is assigning where the miRquant output directories will be copied. This will be created in the -o specified directory
+          projectA_set1, ""_set2, ""_set3 are the results from miRquant that were brought over using miRquant_collect
+```
+
+Once combined, create the conditions.csv, comparisons.csv, and configuration directory for these combined files and run the final processing portion of miRquant.
