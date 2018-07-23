@@ -1,0 +1,21 @@
+#!/usr/bin/bash
+scratch=$1
+
+## Read in arguments (input and output directories)
+TMP=$1
+OUT=$2
+
+## Read length histogram.
+echo " "
+echo "`date '+%m/%d/%Y %H:%M:%S'`"
+echo "Analyzing read lengths after trimming adapters:"
+for fastq in ${TMP}/noadapt/*.fastq.gz
+ do 
+   name=`echo $fastq | awk -F"/" '{print $NF}' | cut -d \. -f 1`
+   echo " "
+   echo $name
+
+   zcat $fastq | awk '(NR % 4 == 2) { print length($0)-1 }' | R --vanilla --quiet -e 'pdf("'$OUT'/'$name'.readLenHist.pdf"); hist(read.table("stdin")$V1, main="'$name'"); dev.off()'
+ done
+
+## Stephanie's saturation plots.
