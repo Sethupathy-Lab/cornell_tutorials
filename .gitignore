@@ -4,7 +4,7 @@ miRhub_tutorial/*
 !miRhub_tutorial/README.md
 RNAseq_analysis_tutorial/test
 #RNAseq_analysis_tutorial/test/*
-ChROseq/*
-!ChROseq/README.md
+ChRO-seq/*
+!ChRO-seq/README.md
 miqtl_tutorial/tutorial_results/genomecache/*
 Rqtl2_tutorial/GeneseekResults/*
