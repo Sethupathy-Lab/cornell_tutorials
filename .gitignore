@@ -6,3 +6,5 @@ RNAseq_analysis_tutorial/test
 #RNAseq_analysis_tutorial/test/*
 ChROseq/*
 !ChROseq/README.md
+miqtl_tutorial/tutorial_results/genomecache
+Rqtl2_tutorial/GeneseekResults
