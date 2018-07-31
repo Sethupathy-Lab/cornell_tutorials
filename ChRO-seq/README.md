@@ -63,10 +63,12 @@ bash proseqMapper_36threads.bsh -i /home/pr46_0001/projects/genome/GRCh38.p7/GRC
 # dREG_multiSubmit needs to be moved to the output directory prior to running, then this will submit dREG for all samples
 ./dREG_multiSubmit.sh *plus.bw &> dREG.log&
 
-# bash loop to run writeBed for all samples
+# Change into the dREG_single_sample_output directory and bash loop to run writeBed for all samples
 for x in *.bedgraph; do bash /workdir/mk2554/dREG/writeBedv2.bsh 0.8 $x; done
 
-# Run dREG-HD for each HIO sample
+# Once writeBedv2 finishes, move all files in the dREG_single_sample_output directory to the directory immediately above it.
+
+# Move to the directory containing all of the outputs (in the original output directory) and run dREG-HD for each HIO sample
 bash /workdir/mk2554/dREG.HD/run_dREG-HD.bsh HIO7_1_ATCACG.bedgraph.bed HIO7_1_ATCACG_plus.bw HIO7_1_ATCACG_minus.bw /workdir/mk2554/dREG-Model/dREG_HD.model.rdata 36 &> dREG.HD.HIO1.log&
 
 bash /workdir/mk2554/dREG.HD/run_dREG-HD.bsh HIO7_2_CGATGT.bedgraph.bed HIO7_2_CGATGT_plus.bw HIO7_2_CGATGT_minus.bw /workdir/mk2554/dREG-Model/dREG_HD.model.rdata 36 &> dREG.HD.HIO2.log&
