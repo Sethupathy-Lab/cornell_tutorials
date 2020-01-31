@@ -7,39 +7,6 @@ The location of the ChRO-seq files is here:
 /home/pr46_0001/cornell_tutorials/ChRO-seq
 ```
 
-The directory contents are:
-```
-ChRO-seq/
-├── dREG.HD
-│   ├── dREG.HD
-│   │   ├── DESCRIPTION
-│   │   ├── inst
-│   │   │   └── extdata
-│   │   │       ├── chromInfo.hg19
-│   │   │       ├── dREG_HD.model.rdata
-│   │   │       ├── K562.chr21.minus.bw
-│   │   │       ├── K562.chr21.plus.bw
-│   │   │       └── k562.chr21.predictions.bed
-│   │   ├── man
-│   │   │   └── dREG_HD.Rd
-│   │   ├── NAMESPACE
-│   │   └── R
-│   │       ├── dREG_HD_GPU_working.R
-│   │       └── get_genomic_data.R
-│   ├── manual.pdf
-│   ├── run_dREG-HD.bsh
-│   └── run_dREG-HD.R
-├── dREG-Model
-│   ├── asvm.dm3.RData
-│   ├── asvm.mammal.RData
-│   ├── dREG_HD.model.rdata
-│   └── README.md
-├── dREG_multiSubmit.sh
-├── proseqMapper_36threads.bsh
-├── qc_v2.bsh
-└── README.md
-```
-
 We'll next reserve a machine, login to our machine, create a folder in the working directory, and move our test files there. For information on this, see [getting ready to run a job](https://github.com/Sethupathy-Lab/cornell_tutorials/blob/master/getting_ready_to_run_a_job.md).
 **NOTE: Reserve a machine with at least 36 cores (medium-memory2 or higher) if you plan to use the maximum number of threads (which you probably want to do)**.
 
@@ -50,13 +17,33 @@ $ cp /home/pr46_0001/cornell_tutorials/ChRO-seq/* /workdir/<your Cornell ID here
 
 Copy your ChRO-seq sequencing files to this location, and then change to the same location.
 
-### Example of a ChRO-seq run for Amy's HIO samples
+### Example of a ChRO-seq run for Tim's FLC normal liver samples
+
+#### Overview
+
+1. Eliminate PCR duplicates, trim reads, QC, map to genome
+2. Merge bigwig files from mapping to call TREs
+3. Call a universal set of TREs with dREG
+4. Identify differentially transcribed TREs between cell types/conditions
+5. Perform transcription factor motif enrichment analysis
+
 
 These are the commands used to run ChRO-seq and info on these commands can be found in ChRO-seq pipeline
 
 ```
-# proseqMapper using 36 cores
-bash proseqMapper_36threads.bsh -i /home/pr46_0001/projects/genome/GRCh38.p7/GRCh38.primary_assembly.genome -c /home/pr46_0001/projects/genome/GRCh38.p7/GRCh38.chrom.sizes -b6 -q -O 2018_06_HIO &> HIO_mapping.log &
+source /home/pr46_0001/ChROseq/ChROseq_pipeline/ProseqMapper/setChROenv.bsh
+
+bash /home/pr46_0001/ChROseq/ChROseq_pipeline/ProseqMapper/proseq2.0.bsh \
+  -SE \
+  -G \
+  -i /home/pr46_0001/projects/genome/GRCh38.p7_rRNA/GRCh38.primary_assembly.genome_rRNA \
+  -c /home/pr46_0001/projects/genome/GRCh38.p7_rRNA/GRCh38.rRNA.chrom.sizes \
+  -O ProseqMapper2.0_output \
+  --UMI1=6 \
+  --thread=40 \
+  -4DREG &> Proseq_output.log&
+
+*** Work in progress ***
 
 # We don't have multiple samples to merge, thus the mergeBigWigs step is skipped
 
